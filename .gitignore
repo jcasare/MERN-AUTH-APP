@@ -1,0 +1,4 @@
+client/mern-auth-app/node_modules
+server/node_modules
+client/mern-auth-app/.env
+server/.env
