@@ -1,7 +1,15 @@
 import toast from 'react-hot-toast'
+import { authenticate } from './apiRequests'
 
 export async function usernameValidate(values) {
   const errors = usernameVerify({}, values)
+  if (values.username) {
+    const { status } = await authenticate(values.username)
+
+    if (status !== 200) {
+      errors.exit = toast.error('User does not exist')
+    }
+  }
 
   return errors
 }
@@ -14,7 +22,7 @@ export async function resetPasswordValidate(values) {
   if (values.password !== values.confirm_password) {
     errors.exist = toast.error('Passwords do not match')
   }
-  return error
+  return errors
 }
 export async function registerValidate(values) {
   const errors = usernameVerify({}, values)
@@ -25,7 +33,7 @@ export async function registerValidate(values) {
 
 export async function profileValidate(values) {
   const errors = emailVerify({}, values)
-  return error
+  return errors
 }
 
 function emailVerify(error = {}, values) {
@@ -44,7 +52,7 @@ function emailVerify(error = {}, values) {
 function usernameVerify(error = {}, values) {
   if (!values.username) {
     error.username = toast.error('Username required...!!')
-  } else if (values.username.includes('')) {
+  } else if (values.username.includes('   ')) {
     error.username = toast.error('Invalid/No username')
   }
   return error

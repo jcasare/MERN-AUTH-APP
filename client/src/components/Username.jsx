@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../assets/user (2).png'
 import styles from '../css/username.module.css'
 import { Toaster } from 'react-hot-toast'
 import { useFormik } from 'formik'
 import { usernameValidate } from '../helper/validate'
+import { useAuthStore } from '../store/store'
+import { useEffect } from 'react'
 const Username = () => {
+  const navigate = useNavigate()
+  const setUsername = useAuthStore((state) => state.setUsername)
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -13,9 +18,11 @@ const Username = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      console.log(values)
+      setUsername(values.username)
+      navigate('/password')
     },
   })
+
   return (
     <div className="container mx-auto">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
@@ -24,7 +31,7 @@ const Username = () => {
           <div className="title flex flex-col items-center">
             <h4 className="text-5xl font-bold">Hello there!</h4>
             <span className="py-4 text-xl w-2/3 text-center text-gray-500">
-              hola amigo jay
+              Experience more by connecting with us.
             </span>
           </div>
           <form className="py-1" onSubmit={formik.handleSubmit}>

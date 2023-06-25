@@ -19,7 +19,6 @@ const Register = () => {
     validateOnChange: false,
     onSubmit: async (values) => {
       values = await Object.assign(values, { profile: file || '' })
-      console.log(values)
     },
   })
 

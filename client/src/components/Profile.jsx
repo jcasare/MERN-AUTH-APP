@@ -96,9 +96,9 @@ const Profile = () => {
             <div className="text-center ">
               <span className="text-gray-500">
                 Come back later?
-                <button className="text-red-500 mx-1" to="/">
+                <Link className="text-red-500 mx-1" to="/">
                   Logout
-                </button>
+                </Link>
               </span>
             </div>
           </form>
